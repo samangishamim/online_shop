@@ -39,7 +39,7 @@ CREATE TABLE Users
     username VARCHAR(50)
 );
 
-CREATE TABLE Admins
+CREATE TABLE admins
 (
     id              serial PRIMARY KEY,
     username        VARCHAR(50),
