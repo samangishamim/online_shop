@@ -19,7 +19,29 @@ CREATE TABLE Products
     price          DECIMAL(10, 2),
     brand_id       INT,
     FOREIGN KEY (category_id) REFERENCES Categories (id),
-    FOREIGN KEY (brand_id) REFERENCES Brands(id)
+    FOREIGN KEY (brand_id) REFERENCES Brands (id)
 );
 
+CREATE TABLE ShoppingCart
+(
+    id          serial PRIMARY KEY,
+    product_id  INT,
+    quantity    INT,
+    totalAmount DECIMAL(10, 2),
+    user_id     INT,
+    FOREIGN KEY (product_id) REFERENCES Products (id),
+    FOREIGN KEY (user_id) REFERENCES Users (id)
 
+);
+CREATE TABLE Users
+(
+    id       serial PRIMARY KEY,
+    username VARCHAR(50)
+);
+
+CREATE TABLE Admins
+(
+    id              serial PRIMARY KEY,
+    username        VARCHAR(50),
+    password        VARCHAR(50)
+);
