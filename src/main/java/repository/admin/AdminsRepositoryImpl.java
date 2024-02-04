@@ -42,7 +42,9 @@ public class AdminsRepositoryImpl extends BaseRepositoryImpl <String , Admins>
     }
 
     @Override
-    public Admins mapResultSetToEntity(ResultSet resultSet) {
-
+    public Admins mapResultSetToEntity(ResultSet resultSet) throws SQLException {
+        String userName = resultSet.getString(1);
+        String password = resultSet.getString(2);
+        return  new Admins(userName,password);
     }
 }
