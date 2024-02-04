@@ -1,4 +1,4 @@
-package repository;
+package repository.admin;
 
 import Base.Repository.BaseRepository;
 import model.Admins;
