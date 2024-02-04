@@ -5,6 +5,7 @@ import Base.Model.BaseEntity;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public abstract class BaseRepositoryImpel<ID extends Serializable, T extends BaseEntity<ID>>
@@ -17,7 +18,7 @@ public abstract class BaseRepositoryImpel<ID extends Serializable, T extends Bas
     }
 
     @Override
-    public void save(BaseEntity entity) throws SQLException {
+    public void save(T entity) throws SQLException {
         // todo: INSERT INTO TABLE NAME (FIELD NAME) VALUES (QUESTIONMARKS)
         String sql = " INSERT INTO " + getTableName() + getFieldName() + " VALUES " + getQuestionMark();
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -27,24 +28,36 @@ public abstract class BaseRepositoryImpel<ID extends Serializable, T extends Bas
     }
 
     @Override
-    public BaseEntity findById(Serializable serializable) {
-        return null;
+    public T findById(ID id) throws SQLException {
+// todo : SELECT * FROM TABLE NAME WHERE ID=?
+        String sql = " SELECT * FROM " + getTableName() + " WHERE id = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql){
+            ps.setInt(1,(Integer) id);
+
+            ResultSet resultSet = ps.executeQuery();
+            if (resultSet.next()){
+                return  mapResultSetToEntity(resultSet);
+            }
+        }
     }
 
     @Override
-    public void update(BaseEntity entity) {
+    public void update(T entity) {
 
     }
 
     @Override
-    public void delete(Serializable serializable) {
+    public void delete(ID id) {
 
     }
 
-    public  abstract String getTableName();
+    public abstract String getTableName();
 
     public abstract String getQuestionMark();
 
     public abstract String getFieldName();
+
     public abstract String setFields(PreparedStatement ps);
+
+    public  abstract String mapResultSetToEntity(ResultSet resultSet);
 }
