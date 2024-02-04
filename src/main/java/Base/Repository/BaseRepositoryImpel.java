@@ -39,6 +39,7 @@ public abstract class BaseRepositoryImpel<ID extends Serializable, T extends Bas
                 return  mapResultSetToEntity(resultSet);
             }
         }
+        return  null;
     }
 
     @Override
@@ -59,5 +60,5 @@ public abstract class BaseRepositoryImpel<ID extends Serializable, T extends Bas
 
     public abstract String setFields(PreparedStatement ps);
 
-    public  abstract String mapResultSetToEntity(ResultSet resultSet);
+    public  abstract T mapResultSetToEntity(ResultSet resultSet);
 }
