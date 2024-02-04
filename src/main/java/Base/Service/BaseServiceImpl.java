@@ -7,6 +7,13 @@ import java.io.Serializable;
 
 public class BaseServiceImpl <ID extends Serializable , T extends BaseEntity <ID>, R extends BaseRepository<ID , T>>
         implements  BaseService<ID , T>{
+
+    public  final  R repository;
+
+    public BaseServiceImpl(R repository) {
+        this.repository = repository;
+    }
+
     @Override
     public void save(T entity) {
 
