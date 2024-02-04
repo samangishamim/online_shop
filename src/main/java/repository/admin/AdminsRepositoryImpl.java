@@ -7,6 +7,7 @@ import model.Admins;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class AdminsRepositoryImpl extends BaseRepositoryImpl <String , Admins>
         implements  AdminsRepository {
@@ -31,16 +32,17 @@ public class AdminsRepositoryImpl extends BaseRepositoryImpl <String , Admins>
 
     @Override
     public String getUpdateFields() {
-        return null;
+        return "username=? , password=? ";
     }
 
     @Override
-    public String setFields(PreparedStatement ps, Admins entity, boolean isCountOnly) {
-        return null;
+    public void setFields(PreparedStatement ps, Admins entity, boolean isCountOnly) throws SQLException {
+        ps.setString(1,entity.getUsername());
+        ps.setString(2,entity.getPassword());
     }
 
     @Override
     public Admins mapResultSetToEntity(ResultSet resultSet) {
-        return null;
+
     }
 }
