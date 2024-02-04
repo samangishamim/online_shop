@@ -16,4 +16,5 @@ public class Admins extends BaseEntity<String> {
     String username;
     String password;
 
+
 }
