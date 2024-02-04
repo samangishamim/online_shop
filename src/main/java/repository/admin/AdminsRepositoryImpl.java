@@ -18,16 +18,16 @@ public class AdminsRepositoryImpl extends BaseRepositoryImpl <String , Admins>
     public String getTableName() {
         return  "admins";
     }
+    @Override
+    public String getFieldName() {
+        return "username , password";
+    }
 
     @Override
     public String getQuestionMark() {
-        return null;
+        return "(?,?)";
     }
 
-    @Override
-    public String getFieldName() {
-        return null;
-    }
 
     @Override
     public String getUpdateFields() {
