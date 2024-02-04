@@ -28,6 +28,7 @@ CREATE TABLE ShoppingCart
     product_id  INT,
     quantity    INT,
     totalAmount DECIMAL(10, 2),
+    order_date DATE,
     user_id     INT,
     FOREIGN KEY (product_id) REFERENCES Products (id),
     FOREIGN KEY (user_id) REFERENCES Users (id)
@@ -36,12 +37,13 @@ CREATE TABLE ShoppingCart
 CREATE TABLE Users
 (
     id       serial PRIMARY KEY,
-    username VARCHAR(50)
+    username VARCHAR(50),
+    password varchar(50)
 );
 
 CREATE TABLE admins
 (
-    id              serial PRIMARY KEY,
-    username        VARCHAR(50),
-    password        VARCHAR(50)
+    id       serial PRIMARY KEY,
+    username VARCHAR(50),
+    password VARCHAR(50)
 );
