@@ -53,8 +53,12 @@ public abstract class BaseRepositoryImpel<ID extends Serializable, T extends Bas
     }
 
     @Override
-    public void delete(ID id) {
-
+    public void delete(ID id) throws SQLException {
+// todo: DELETE FROM TABLENAME WHERE ID=?
+        String sql= " DELETE FROM " + getTableName() + " WHERE id = " + id;
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.executeUpdate();
+        }
     }
 
     public abstract String getTableName();
