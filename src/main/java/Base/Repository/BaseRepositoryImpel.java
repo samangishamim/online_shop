@@ -22,7 +22,7 @@ public abstract class BaseRepositoryImpel<ID extends Serializable, T extends Bas
         // todo: INSERT INTO TABLE NAME (FIELD NAME) VALUES (QUESTIONMARKS)
         String sql = " INSERT INTO " + getTableName() + getFieldName() + " VALUES " + getQuestionMark();
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
-            setFields(ps);
+            setFields(ps, entity, false);
             ps.executeQuery();
         }
     }
@@ -31,20 +31,25 @@ public abstract class BaseRepositoryImpel<ID extends Serializable, T extends Bas
     public T findById(ID id) throws SQLException {
 // todo : SELECT * FROM TABLE NAME WHERE ID=?
         String sql = " SELECT * FROM " + getTableName() + " WHERE id = ?";
-        try (PreparedStatement ps = connection.prepareStatement(sql){
-            ps.setInt(1,(Integer) id);
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, (Integer) id);
 
             ResultSet resultSet = ps.executeQuery();
-            if (resultSet.next()){
-                return  mapResultSetToEntity(resultSet);
+            if (resultSet.next()) {
+                return mapResultSetToEntity(resultSet);
             }
         }
-        return  null;
+        return null;
     }
 
     @Override
-    public void update(T entity) {
-
+    public void update(T entity) throws SQLException {
+// todo: UPDATE TABLENAME SER FIELDNAME=? .... WHERE ID=?
+        String sql = " UPDATE " + getTableName() + " SET " + getUpdateFields() + " WHERE id = " + entity.getId();
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            setFields(ps, entity, true);
+            ps.executeUpdate();
+        }
     }
 
     @Override
@@ -58,7 +63,9 @@ public abstract class BaseRepositoryImpel<ID extends Serializable, T extends Bas
 
     public abstract String getFieldName();
 
-    public abstract String setFields(PreparedStatement ps);
+    public abstract String getUpdateFields();
 
-    public  abstract T mapResultSetToEntity(ResultSet resultSet);
+    public abstract String setFields(PreparedStatement ps, T entity, boolean isCountOnly);
+
+    public abstract T mapResultSetToEntity(ResultSet resultSet);
 }
