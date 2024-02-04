@@ -16,7 +16,7 @@ public class AdminsRepositoryImpl extends BaseRepositoryImpl <String , Admins>
 
     @Override
     public String getTableName() {
-        return null;
+        return  "admins";
     }
 
     @Override
