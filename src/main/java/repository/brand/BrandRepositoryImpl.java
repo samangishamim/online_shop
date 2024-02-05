@@ -16,7 +16,7 @@ public class BrandRepositoryImpl extends BaseRepositoryImpl<Integer, Brand> impl
 
     @Override
     public String getTableName() {
-        return "brand";
+        return "brands";
     }
 
     @Override
