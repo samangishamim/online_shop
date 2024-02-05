@@ -3,7 +3,6 @@ package repository.brand;
 import Base.Repository.BaseRepositoryImpl;
 import model.Brand;
 
-import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
