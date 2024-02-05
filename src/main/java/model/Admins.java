@@ -16,5 +16,10 @@ public class Admins extends BaseEntity<Integer> {
     String username;
     String password;
 
+    public  Admins(int id , String username , String password){
+        super(id);
+        this.username=username;
+        this.password=password;
+    }
 
 }
