@@ -16,7 +16,7 @@ import service.category.CategoryService;
 
 import java.sql.Connection;
 
-public class AplicationContext {
+public class ApplicationContext {
     private static Connection CONNECTION;
     private static AdminsRepository ADMINS_REPOSITORY;
     private static AdminsService ADMINS_SERVICE;
