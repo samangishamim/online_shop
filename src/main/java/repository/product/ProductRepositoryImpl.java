@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class ProductRepositoryImpl extends BaseRepositoryImpl<Integer, Product>
         implements ProductRepository {
@@ -56,5 +57,21 @@ public class ProductRepositoryImpl extends BaseRepositoryImpl<Integer, Product>
         BigDecimal price = resultSet.getBigDecimal(5);
         int brandId = resultSet.getInt(6);
         return new Product(id,productName,categoryId,stockQuantity,price,brandId);
+    }
+
+    @Override
+    public ArrayList<Product> listOfProduct() throws SQLException {
+        //todo SELECT  * FROM player ;
+        String sql = "SELECT * FROM products";
+        try (PreparedStatement ps = connection.prepareStatement(sql,
+                ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)) {
+            ResultSet resultSet = ps.executeQuery();
+
+            ArrayList<Product> productList = new ArrayList<>();
+            while (resultSet.next()) {
+                productList.add(mapResultSetToEntity(resultSet));
+            }
+            return productList;
+        }
     }
 }
