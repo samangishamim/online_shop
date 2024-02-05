@@ -9,7 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class AdminsRepositoryImpl extends BaseRepositoryImpl <String , Admins>
+public class AdminsRepositoryImpl extends BaseRepositoryImpl <Integer , Admins>
         implements  AdminsRepository {
     public AdminsRepositoryImpl(Connection connection) {
         super(connection);
@@ -21,7 +21,7 @@ public class AdminsRepositoryImpl extends BaseRepositoryImpl <String , Admins>
     }
     @Override
     public String getFieldName() {
-        return "username , password";
+        return "(username , password)";
     }
 
     @Override
