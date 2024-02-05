@@ -11,7 +11,7 @@ import java.sql.SQLException;
 public abstract class BaseRepositoryImpl<ID extends Serializable, T extends BaseEntity<ID>>
         implements BaseRepository<ID, T> {
 
-    private final Connection connection;
+    public final Connection connection;
 
 
     public BaseRepositoryImpl(Connection connection) {
