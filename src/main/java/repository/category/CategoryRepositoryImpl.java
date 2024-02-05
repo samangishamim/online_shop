@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class CategoryRepositoryImpl extends BaseRepositoryImpl <Integer, Category>
+public class CategoryRepositoryImpl extends BaseRepositoryImpl<Integer, Category>
         implements CategoryRepository {
     public CategoryRepositoryImpl(Connection connection) {
         super(connection);
@@ -18,36 +18,32 @@ public class CategoryRepositoryImpl extends BaseRepositoryImpl <Integer, Categor
 
     @Override
     public String getTableName() {
-        return null;
+        return "categories";
     }
 
     @Override
     public String getFieldName() {
-        return null;
+        return "(name)";
     }
 
     @Override
     public String getQuestionMark() {
-        return null;
+        return "(?)";
     }
 
     @Override
     public String getUpdateFields() {
-        return null;
+        return "name=?";
     }
 
     @Override
     public void setFields(PreparedStatement ps, Category entity, boolean isCountOnly) throws SQLException {
-
+        ps.setString(1, entity.getCategoryName());
     }
 
     @Override
     public Category mapResultSetToEntity(ResultSet resultSet) throws SQLException {
-        return null;
-    }
-
-    @Override
-    public ArrayList<Category> listOfCategory() {
-        return null;
+        String categoryName = resultSet.getString(1);
+        return new Category(categoryName);
     }
 }
