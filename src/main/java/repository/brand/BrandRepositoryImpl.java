@@ -9,38 +9,39 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class BrandRepositoryImpl extends BaseRepositoryImpl<Integer, Brand> implements BrandRepository{
+public class BrandRepositoryImpl extends BaseRepositoryImpl<Integer, Brand> implements BrandRepository {
     public BrandRepositoryImpl(Connection connection) {
         super(connection);
     }
 
     @Override
     public String getTableName() {
-        return null;
+        return "brand";
     }
 
     @Override
     public String getFieldName() {
-        return null;
+        return "(name)";
     }
 
     @Override
     public String getQuestionMark() {
-        return null;
+        return "(?)";
     }
 
     @Override
     public String getUpdateFields() {
-        return null;
+        return "name=?";
     }
 
     @Override
     public void setFields(PreparedStatement ps, Brand entity, boolean isCountOnly) throws SQLException {
-
+        ps.setString(1, entity.getBrandName());
     }
 
     @Override
     public Brand mapResultSetToEntity(ResultSet resultSet) throws SQLException {
-        return null;
+        String brandName = resultSet.getString(1);
+        return  new Brand(brandName);
     }
 }
