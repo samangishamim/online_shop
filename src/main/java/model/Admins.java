@@ -12,7 +12,7 @@ import lombok.experimental.FieldDefaults;
 @ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
 
-public class Admins extends BaseEntity<String> {
+public class Admins extends BaseEntity<Integer> {
     String username;
     String password;
 

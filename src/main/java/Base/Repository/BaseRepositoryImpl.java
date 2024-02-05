@@ -1,7 +1,6 @@
 package Base.Repository;
 
 import Base.Model.BaseEntity;
-import model.Admins;
 
 import java.io.Serializable;
 import java.sql.Connection;
@@ -32,7 +31,7 @@ public abstract class BaseRepositoryImpl<ID extends Serializable, T extends Base
     @Override
     public T findById(ID id) throws SQLException {
 // todo : SELECT * FROM TABLE NAME WHERE ID=?;
-        String sql = " SELECT * FROM " + getTableName() + " WHERE id = ?";
+        String sql = "SELECT * FROM " + getTableName() + " WHERE id = ?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, (Integer) id);
 
@@ -71,17 +70,7 @@ public abstract class BaseRepositoryImpl<ID extends Serializable, T extends Base
 
     public abstract String getUpdateFields();
 
-    public  void setFields(PreparedStatement ps, Admins entity, boolean isCountOnly) throws SQLException{
-//        ps.setString(1,entity.getCityName());
-        ps.setString(1,entity.getUsername());
-        ps.setString(2,entity.getPassword());
+    public abstract void setFields(PreparedStatement ps, T entity, boolean isCountOnly) throws SQLException;
 
-    }
-
-    public Admins mapResultSetToEntity(ResultSet resultSet) throws SQLException
-    {
-        String username = resultSet.getString(1);
-        String password = resultSet.getString(2);
-        return new Admins(username,password);
-    }
+    public abstract T mapResultSetToEntity(ResultSet resultSet) throws SQLException;
 }
