@@ -4,6 +4,8 @@ import Base.Model.BaseEntity;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.math.BigDecimal;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -15,10 +17,10 @@ public class Product extends BaseEntity<Integer> {
     String productName;
     int categoryId;
     int stockQuantity;
-    int productPrice;
+    BigDecimal productPrice;
     int brandId;
 
-    public  Product (int id , String productName,int categoryId,int stockQuantity,int productPrice,int brandId){
+    public  Product (int id , String productName,int categoryId,int stockQuantity,BigDecimal productPrice,int brandId){
         super(id);
         this.productName=productName;
         this.categoryId=categoryId;
@@ -26,4 +28,6 @@ public class Product extends BaseEntity<Integer> {
         this.productPrice=productPrice;
         this.brandId=brandId;
     }
+
+
 }
