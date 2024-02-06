@@ -2,10 +2,12 @@ package repository.shoppingcart;
 
 import Base.Repository.BaseRepository;
 import Base.Repository.BaseRepositoryImpl;
+import model.Product;
 import model.ShoppingCart;
 
 import java.math.BigDecimal;
 import java.sql.*;
+import java.util.ArrayList;
 
 public class ShoppingCartRepositoryImpl extends BaseRepositoryImpl<Integer, ShoppingCart> implements ShoppingCartRepository {
 
@@ -54,5 +56,24 @@ public class ShoppingCartRepositoryImpl extends BaseRepositoryImpl<Integer, Shop
         int userId = resultSet.getInt(7);
 
         return new ShoppingCart(id,productId,quantity,totalAmount,price,orderDate,userId);
+    }
+
+
+    @Override
+    public ArrayList<ShoppingCart> getCartItems(int userId) {
+        String sql = "SELECT id, product_id, quantity, price, total_amount, order_date FROM shopping_cart WHERE user_id = ?";
+        ArrayList<ShoppingCart> cartItems = new ArrayList<>();
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, userId);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                ShoppingCart cart = mapResultSetToEntity(resultSet);
+                cartItems.add(cart);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return cartItems;
     }
 }
