@@ -11,6 +11,7 @@ import lombok.experimental.FieldDefaults;
 @ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Brand extends BaseEntity<Integer> {
+
     String brandName;
 
     public  Brand (int id,String brandName ){
