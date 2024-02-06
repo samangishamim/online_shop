@@ -1,4 +1,7 @@
 package service.shoppingcart;
 
-public interface ShoppingCartService {
+import Base.Service.BaseService;
+import model.ShoppingCart;
+
+public interface ShoppingCartService extends BaseService<Integer, ShoppingCart> {
 }
