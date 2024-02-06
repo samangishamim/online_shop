@@ -9,8 +9,6 @@ import service.product.ProductService;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.sql.Date;
 import java.util.Scanner;
 
