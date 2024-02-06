@@ -27,6 +27,7 @@ CREATE TABLE ShoppingCart
     id          serial PRIMARY KEY,
     product_id  INT,
     quantity    INT,
+    price DECIMAL(10,2),
     totalAmount DECIMAL(10, 2),
     order_date DATE,
     user_id     INT,
