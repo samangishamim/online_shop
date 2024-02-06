@@ -5,7 +5,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.sql.Date;
 
 
 @Getter
@@ -18,11 +18,11 @@ public class ShoppingCart extends BaseEntity<Integer> {
     int productId;
     int quantity;
     BigDecimal price;
-    int totalAmount;
-    Date orderDate;
+    BigDecimal totalAmount;
+    java.sql.Date orderDate;
     int userId;
 
-    public ShoppingCart (int id,int productId,int quantity,BigDecimal price,int totalAmount,Date orderDate,int userId){
+    public ShoppingCart (int id, int productId, int quantity, BigDecimal price, BigDecimal totalAmount, Date orderDate, int userId){
         super(id);
         this.productId=productId;
         this.quantity=quantity;
