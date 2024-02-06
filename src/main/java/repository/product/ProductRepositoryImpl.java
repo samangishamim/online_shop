@@ -61,7 +61,7 @@ public class ProductRepositoryImpl extends BaseRepositoryImpl<Integer, Product>
 
     @Override
     public ArrayList<Product> listOfProduct() throws SQLException {
-        //todo SELECT  * FROM player ;
+        //todo SELECT  * FROM product ;
         String sql = "SELECT * FROM products";
         try (PreparedStatement ps = connection.prepareStatement(sql,
                 ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)) {
