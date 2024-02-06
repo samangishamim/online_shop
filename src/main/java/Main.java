@@ -6,6 +6,7 @@ import service.admin.AdminsService;
 import service.brand.BrandService;
 import service.category.CategoryService;
 import service.product.ProductService;
+import service.shoppingcart.ShoppingCartService;
 import service.users.UserService;
 
 import java.math.BigDecimal;
@@ -55,9 +56,15 @@ public class Main {
 
         //todo : test for admin
 
-        AdminsService adminsService=ApplicationContext.getAdminsService();
+//        AdminsService adminsService=ApplicationContext.getAdminsService();
 //        adminsService.SignUp();
 //    adminsService.signing();
+
+
+        ///todo test for shoppingcart
+
+//        ShoppingCartService shoppingCartService=ApplicationContext.getShoppingCartService();
+//        shoppingCartService.addShoppingCart(1);
     }
 
 
