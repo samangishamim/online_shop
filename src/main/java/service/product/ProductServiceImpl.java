@@ -21,4 +21,9 @@ public class ProductServiceImpl extends BaseServiceImpl<Integer, Product, Produc
     public void UpdateStockQuantity(int productId, int quantity, boolean add) throws SQLException {
         repository.UpdateStockQuantity(productId,quantity,add);
     }
+
+    @Override
+    public boolean CheckStockQuantity(int productId, int quantity) throws SQLException {
+        return repository.CheckStockQuantity(productId,quantity);
+    }
 }
