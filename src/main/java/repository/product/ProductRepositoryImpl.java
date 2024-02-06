@@ -42,10 +42,10 @@ public class ProductRepositoryImpl extends BaseRepositoryImpl<Integer, Product>
     @Override
     public void setFields(PreparedStatement ps, Product entity, boolean isCountOnly) throws SQLException {
         ps.setString(1, entity.getProductName());
-        ps.setInt(2,entity.getCategoryId());
-        ps.setInt(3,entity.getStockQuantity());
-        ps.setBigDecimal(4,entity.getProductPrice() );
-        ps.setInt(5,entity.getBrandId());
+        ps.setInt(2, entity.getCategoryId());
+        ps.setInt(3, entity.getStockQuantity());
+        ps.setBigDecimal(4, entity.getProductPrice());
+        ps.setInt(5, entity.getBrandId());
     }
 
     @Override
@@ -56,7 +56,7 @@ public class ProductRepositoryImpl extends BaseRepositoryImpl<Integer, Product>
         int stockQuantity = resultSet.getInt(4);
         BigDecimal price = resultSet.getBigDecimal(5);
         int brandId = resultSet.getInt(6);
-        return new Product(id,productName,categoryId,stockQuantity,price,brandId);
+        return new Product(id, productName, categoryId, stockQuantity, price, brandId);
     }
 
     @Override
@@ -72,6 +72,22 @@ public class ProductRepositoryImpl extends BaseRepositoryImpl<Integer, Product>
                 productList.add(mapResultSetToEntity(resultSet));
             }
             return productList;
+        }
+    }
+
+    @Override
+    public void UpdateStockQuantity(int productId, int quantity, boolean add) throws SQLException {
+        //todo
+        String sql = "";
+        if (add) {
+            sql = "UPDATE products set stock_quantity= stock_quantity +? Where id=?;";
+        } else {
+            sql = "UPDATE products set stock_quantity= stock_quantity -? Where id=?;";
+        }
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, quantity);
+            ps.setInt(2, productId);
+            ps.executeUpdate();
         }
     }
 }
