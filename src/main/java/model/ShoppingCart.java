@@ -19,7 +19,7 @@ public class ShoppingCart extends BaseEntity<Integer> {
     int quantity;
     BigDecimal price;
     BigDecimal totalAmount;
-    java.sql.Date orderDate;
+   Date orderDate;
     int userId;
 
     public ShoppingCart (int id, int productId, int quantity, BigDecimal price, BigDecimal totalAmount, Date orderDate, int userId){
@@ -27,15 +27,9 @@ public class ShoppingCart extends BaseEntity<Integer> {
         this.productId=productId;
         this.quantity=quantity;
         this.price=price;
+        this.totalAmount=totalAmount;
         this.orderDate=orderDate;
         this.userId=userId;
     }
 
-    public ShoppingCart(int id,int quantity,BigDecimal price, BigDecimal totalAmount, Date orderDate, int userId){
-        super(id);
-        this.quantity=quantity;
-        this.price=price;
-        this.orderDate=orderDate;
-        this.userId=userId;
-    }
 }
