@@ -3,6 +3,7 @@ package repository.admin;
 
 import Base.Repository.BaseRepositoryImpl;
 import model.Admins;
+import model.Category;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
