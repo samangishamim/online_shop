@@ -30,4 +30,12 @@ public class ShoppingCart extends BaseEntity<Integer> {
         this.orderDate=orderDate;
         this.userId=userId;
     }
+
+    public ShoppingCart(int id,int quantity,BigDecimal price, BigDecimal totalAmount, Date orderDate, int userId){
+        super(id);
+        this.quantity=quantity;
+        this.price=price;
+        this.orderDate=orderDate;
+        this.userId=userId;
+    }
 }
