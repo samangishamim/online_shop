@@ -48,4 +48,15 @@ public class AdminsRepositoryImpl extends BaseRepositoryImpl <Integer , Admins>
         String password = resultSet.getString(2);
         return  new Admins(userName,password);
     }
+
+    @Override
+    public boolean doSigning(String username, String password) throws SQLException {
+        String signIn = "select * from " + getTableName() + " where username=? and password=?; ";
+        try (PreparedStatement ps = connection.prepareStatement(signIn)) {
+            ps.setString(1, username);
+            ps.setString(2, password);
+
+            return ps.executeQuery().next();
+        }
+    }
 }
