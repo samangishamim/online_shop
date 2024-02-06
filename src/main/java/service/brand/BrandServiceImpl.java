@@ -1,6 +1,5 @@
 package service.brand;
 
-import Base.Service.BaseService;
 import Base.Service.BaseServiceImpl;
 import model.Brand;
 import repository.brand.BrandRepository;
