@@ -90,4 +90,14 @@ public class ProductRepositoryImpl extends BaseRepositoryImpl<Integer, Product>
             ps.executeUpdate();
         }
     }
+
+    @Override
+    public boolean CheckStockQuantity(int productId, int quantity) throws SQLException {
+        String sql="SELECT * FROM products WHERE stock_quantity>= ?;";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, quantity);
+            ps.setInt(2, productId);
+         return ps.executeQuery().next();
+        }
+    }
 }
