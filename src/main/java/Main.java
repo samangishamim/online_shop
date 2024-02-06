@@ -2,6 +2,7 @@ import Utility.ApplicationContext;
 import model.Category;
 import model.Product;
 import repository.users.UsersRepository;
+import service.Menu;
 import service.admin.AdminsService;
 import service.brand.BrandService;
 import service.category.CategoryService;
@@ -65,6 +66,9 @@ public class Main {
 
 //        ShoppingCartService shoppingCartService=ApplicationContext.getShoppingCartService();
 //        shoppingCartService.addShoppingCart(1);
+
+        Menu menu=new Menu();
+        menu.menu();
     }
 
 
