@@ -38,7 +38,7 @@ public class UsersRepositoryImpl extends BaseRepositoryImpl<Integer, Users>
     @Override
     public void setFields(PreparedStatement ps, Users entity, boolean isCountOnly) throws SQLException {
         ps.setString(1, entity.getUsername());
-        ps.setString(2,entity.getUsername());
+        ps.setString(2, entity.getUsername());
     }
 
     @Override
@@ -46,6 +46,25 @@ public class UsersRepositoryImpl extends BaseRepositoryImpl<Integer, Users>
         String username = resultSet.getString(1);
         String password = resultSet.getString(2);
 
-        return new Users(username,password);
+        return new Users(username, password);
+    }
+
+    public boolean isUsernameExist(String username) throws SQLException {
+        String existQuery = "select * from \"users\" where username=?;";
+        try (PreparedStatement ps = connection.prepareStatement(existQuery);) {
+            ps.setString(1, username);
+            ResultSet resultSet = ps.executeQuery();
+            return resultSet.next();
+        }
+    }
+
+    public boolean doSigning(String username, String password) throws SQLException {
+        String signIn = "select * from " + getTableName() + " where username=? and password=?; ";
+        try (PreparedStatement ps = connection.prepareStatement(signIn)) {
+            ps.setString(1, username);
+            ps.setString(2, password);
+
+            return ps.executeQuery().next();
+        }
     }
 }
