@@ -14,6 +14,7 @@ import java.math.BigDecimal;
 @FieldDefaults (level = AccessLevel.PRIVATE)
 
 public class Product extends BaseEntity<Integer> {
+    Integer id;
     String productName;
     int categoryId;
     int stockQuantity;
@@ -21,7 +22,7 @@ public class Product extends BaseEntity<Integer> {
     int brandId;
 
     public  Product (int id , String productName,int categoryId,int stockQuantity,BigDecimal productPrice,int brandId){
-        super(id);
+        this.id=id;
         this.productName=productName;
         this.categoryId=categoryId;
         this.stockQuantity=stockQuantity;
