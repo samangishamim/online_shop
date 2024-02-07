@@ -123,4 +123,9 @@ public class ShoppingCartServiceImpl extends BaseServiceImpl<Integer, ShoppingCa
         return repository.findByProductIdUserId(productId, userId);
     }
 
+    @Override
+    public ShoppingCart userShoppingCartReport(int userId) throws SQLException {
+        return repository.findById(userId);
+    }
+
 }
