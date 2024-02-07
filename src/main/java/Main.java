@@ -64,9 +64,9 @@ public class Main {
 
         ///todo test for shoppingcart
 
-//        ShoppingCartService shoppingCartService=ApplicationContext.getShoppingCartService();
+        ShoppingCartService shoppingCartService=ApplicationContext.getShoppingCartService();
 //        shoppingCartService.addShoppingCart(1);
-
+//shoppingCartService.removeShoppingCart(1);
         Menu menu=new Menu();
         menu.menu();
     }
