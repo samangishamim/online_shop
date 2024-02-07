@@ -22,7 +22,6 @@ import java.util.stream.Collectors;
 
 public class Menu {
     Scanner scanner = new Scanner(System.in);
-    AdminsService adminsService = ApplicationContext.getAdminsService();
     BrandService brandService = ApplicationContext.getBrandService();
     CategoryService categoryService = ApplicationContext.getCategoryService();
     ProductService productService = ApplicationContext.getProductService();
@@ -39,6 +38,7 @@ public class Menu {
             System.out.println("2-admin sign in");
             System.out.println("3-user sign up");
             System.out.println("4-user sign in");
+            System.out.println("5-shopping cart report");
             System.out.println("0-exit");
             System.out.println("enter a number ");
             choice = scanner.nextInt();
@@ -58,6 +58,9 @@ public class Menu {
                         subMenu1();
                     }
                 }
+                case 5 -> {
+                    System.out.println("shopping cart report");
+                }
                 case 0 -> {
                     System.out.println("byeeeeee");
                     break;
@@ -65,8 +68,6 @@ public class Menu {
 
             }
         }
-
-
     }
 
     public void subMenu() throws SQLException {
@@ -126,10 +127,11 @@ public class Menu {
                         String newCategoryName = scanner.nextLine();
                         categoryToUpdate.setCategoryName(newCategoryName);
                         categoryService.update(categoryToUpdate);
-                        System.out.println("the category is updated");
+                        System.out.println("The category is updated");
                     } else {
                         System.out.println("Category with id " + categoryId + " not found.");
                     }
+                    break;
                 }
                 case 3 -> {
                     System.out.println("enter the category id to delete ");
@@ -244,6 +246,7 @@ public class Menu {
             System.out.println("1-add shopping cart");
             System.out.println("2-edit shopping cart");
             System.out.println("3-delete shopping cart");
+            System.out.println("4-user shopping cart report");
             System.out.println("0-exit");
             choice = scanner.nextInt();
             scanner.nextLine();
@@ -265,7 +268,7 @@ public class Menu {
                     System.out.println("enter the shopping id to delete ");
                     int shoppingId = scanner.nextInt();
                     scanner.nextLine();
-                    productService.delete(shoppingId);
+                    shoppingCartService.removeShoppingCart(shoppingId);
                 }
                 case 0 -> {
                     System.out.println("exit from subMenu");
@@ -308,27 +311,26 @@ public class Menu {
                 }
                 case 3 -> {
                     System.out.println("List of brands:");
-//                    List<Brand> brandsForEdit = brandService. // Assuming getAll method fetches all brands from the database
-//                    for (Brand brand : brandsForEdit) {
-//                        System.out.println(brand.getId() + ": " + brand.getBrandName();
-                        System.out.println("Enter the brand id to edit: ");
-                        int brandId = scanner.nextInt();
-                        scanner.nextLine();
-                        System.out.println("Enter the new brand name: ");
-                        String newBrandName = scanner.nextLine();
-                        Brand updatedBrand = new Brand();
-                        updatedBrand.setId(brandId);
-                        updatedBrand.setBrandName(newBrandName);
-                        brandService.update(updatedBrand);
+                    ArrayList<Brand> brandsForEdit = brandService.listOfBrand();// Assuming getAll method fetches all brands from the database
+                    brandsForEdit.forEach(System.out::println);
+                    System.out.println("Enter the brand id to edit: ");
+                    int brandId = scanner.nextInt();
+                    scanner.nextLine();
+                    System.out.println("Enter the new brand name: ");
+                    String newBrandName = scanner.nextLine();
+                    Brand updatedBrand = new Brand();
+                    updatedBrand.setId(brandId);
+                    updatedBrand.setBrandName(newBrandName);
+                    brandService.update(updatedBrand);
 
-                    }
-                    case 0 -> {
-                        System.out.println("exit from brand Menu ");
-                        break;
-                    }
+                }
+                case 0 -> {
+                    System.out.println("exit from brand Menu ");
+                    break;
                 }
             }
         }
+    }
 
 //    private ShoppingCart getUpdatedShoppingCartDetails() {
 //        // Prompt the user for updated shopping cart details
@@ -350,4 +352,4 @@ public class Menu {
 //
 //        return updatedShoppingCart;
 //    }
-    }
+}
