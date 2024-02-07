@@ -38,7 +38,7 @@ public class UsersRepositoryImpl extends BaseRepositoryImpl<Integer, Users>
     @Override
     public void setFields(PreparedStatement ps, Users entity, boolean isCountOnly) throws SQLException {
         ps.setString(1, entity.getUsername());
-        ps.setString(2, entity.getUsername());
+        ps.setString(2, entity.getPassword());
     }
 
     @Override
