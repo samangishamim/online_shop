@@ -13,5 +13,6 @@ public interface ShoppingCartRepository extends BaseRepository<Integer, Shopping
     public void deleteByProductIdUserId(int productId,int userId) throws SQLException;
     public ShoppingCart findByProductIdUserId(int productId,int userId) throws SQLException;
     public  ArrayList<ShoppingCart> listByUserId(int userId) throws SQLException;
+    public void userShoppingCartReport(int userId) throws SQLException;
 
 }

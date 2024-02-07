@@ -77,25 +77,25 @@ public class ShoppingCartRepositoryImpl extends BaseRepositoryImpl<Integer, Shop
 
 
     @Override
-    public void deleteByProductIdUserId(int productId,int userId) throws SQLException {
+    public void deleteByProductIdUserId(int productId, int userId) throws SQLException {
         String sql = "delete from shoppingcart where product_id=? AND user_id=?;";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, productId);
-            ps.setInt(2,userId);
+            ps.setInt(2, userId);
 
             ps.executeUpdate();
         }
     }
 
     @Override
-    public ShoppingCart findByProductIdUserId(int productId,int userId) throws SQLException {
+    public ShoppingCart findByProductIdUserId(int productId, int userId) throws SQLException {
         String sql = "SELECT  * FROM shoppingcart WHERE product_id=? AND user_id=?;";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, productId);
-            ps.setInt(2,userId);
+            ps.setInt(2, userId);
             ResultSet resultSet = ps.executeQuery();
 
-            if (resultSet.next()){
+            if (resultSet.next()) {
                 return mapResultSetToEntity(resultSet);
             }
         }
@@ -114,6 +114,15 @@ public class ShoppingCartRepositoryImpl extends BaseRepositoryImpl<Integer, Shop
                 listByUserId.add(mapResultSetToEntity(resultSet));
             }
             return listByUserId;
+        }
+    }
+
+    @Override
+    public void userShoppingCartReport(int userId) throws SQLException {
+        String sql = "SELECT product_id, quantity, price, totalAmount, order_date FROM ShoppingCarts WHERE user_id = ?";
+        try (PreparedStatement ps= connection.prepareStatement(sql)){
+            ps.setInt(1,userId);
+            ResultSet resultSet = ps.executeQuery();
         }
     }
 }
