@@ -19,9 +19,14 @@ public class AdminsServiceImpl extends BaseServiceImpl<Integer, Admins, AdminsRe
     @Override
     public void SignUp() throws SQLException {
         System.out.println("**** signup ****");
-        System.out.println("enter your username: ");
-        String username = scanner.nextLine();
-        System.out.println("enter your password");
+        String username;
+        do {
+            System.out.println("enter your username: ");
+            username = scanner.nextLine();
+            if (username.isEmpty()) {
+                System.out.println("Username cannot be empty. Please try again.");
+            }
+        } while (username.isEmpty());
         String password = getPassword();
 
         try {
@@ -40,10 +45,16 @@ public class AdminsServiceImpl extends BaseServiceImpl<Integer, Admins, AdminsRe
     @Override
     public boolean signing() throws SQLException {
         System.out.println("***** sign in *****");
-        System.out.println("enter your username: ");
-        String username = scanner.nextLine();
+        String username;
+        do {
+            System.out.println("enter your username: ");
+            username = scanner.nextLine();
+            if (username.isEmpty()) {
+                System.out.println("Username cannot be empty. Please try again.");
+            }
+        } while (username.isEmpty());
         System.out.println("enter your password ");
-        String password = scanner.nextLine();
+        String password = getPassword();
 
 
         return doSigning(username,password);
@@ -53,6 +64,10 @@ public class AdminsServiceImpl extends BaseServiceImpl<Integer, Admins, AdminsRe
         while (true) {
             System.out.println("enter your password: ");
             password = scanner.nextLine();
+            if (password.isEmpty()) {
+                System.out.println("Password cannot be empty. Please try again.");
+                continue;
+            }
             boolean checkPassword = Validation.checkPassword(password);
             if (checkPassword)
                 break;
@@ -61,4 +76,6 @@ public class AdminsServiceImpl extends BaseServiceImpl<Integer, Admins, AdminsRe
         }
         return password;
     }
+
+
 }
