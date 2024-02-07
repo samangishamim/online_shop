@@ -30,6 +30,7 @@ public class Menu {
     ShoppingCartService shoppingCartService = ApplicationContext.getShoppingCartService();
 
 
+
     public void menu() throws SQLException {
         int choice = -1;
         while (choice != 0) {
@@ -60,6 +61,9 @@ public class Menu {
                 }
                 case 5 -> {
                     System.out.println("shopping cart report");
+                    shoppingCartService.listOfShoppingCart().forEach(System.out::println);
+                    System.out.println("sum of total amount");
+                    shoppingCartService.sumOfTotalAmountOfItems().forEach(System.out::println);
                 }
                 case 0 -> {
                     System.out.println("byeeeeee");
@@ -244,9 +248,8 @@ public class Menu {
         while (choice != 0) {
             System.out.println("**** sub menu ****");
             System.out.println("1-add shopping cart");
-            System.out.println("2-edit shopping cart");
-            System.out.println("3-delete shopping cart");
-            System.out.println("4-user shopping cart report");
+            System.out.println("2-delete shopping cart");
+            System.out.println("3-user shopping cart report");
             System.out.println("0-exit");
             choice = scanner.nextInt();
             scanner.nextLine();
@@ -258,17 +261,19 @@ public class Menu {
                     shoppingCartService.addShoppingCart(userId);
                 }
                 case 2 -> {
-                    System.out.println("Enter the shopping cart ID to update: ");
-                    int shoppingCartId = scanner.nextInt();
-                    scanner.nextLine();
-//                    shoppingCartService.update(shoppingCartId);  // Call the method to update the shopping cart
-                    break;
-                }
-                case 3 -> {
-                    System.out.println("enter the shopping id to delete ");
+                    System.out.println("enter the product id to delete ");
                     int shoppingId = scanner.nextInt();
                     scanner.nextLine();
                     shoppingCartService.removeShoppingCart(shoppingId);
+                }
+                case  3->{
+                    System.out.println("enter your user id :");
+                    int userId = scanner.nextInt();
+                    scanner.nextLine();
+                    System.out.println("list of your product ");
+                    shoppingCartService.listByUserId(userId).forEach(System.out::println);
+                    System.out.println("total amount ");
+                    shoppingCartService.sumOfTotalAmountOfItems(userId).forEach(System.out::println);
                 }
                 case 0 -> {
                     System.out.println("exit from subMenu");
@@ -331,25 +336,4 @@ public class Menu {
             }
         }
     }
-
-//    private ShoppingCart getUpdatedShoppingCartDetails() {
-//        // Prompt the user for updated shopping cart details
-//        System.out.println("Enter the updated items for the shopping cart (comma-separated): ");
-//        String itemsInput = scanner.nextLine();
-//        String[] itemsArray = itemsInput.split(",");
-//
-//        System.out.println("Enter the updated quantities for the items (comma-separated): ");
-//        String quantitiesInput = scanner.nextLine();
-//        String[] quantitiesArray = quantitiesInput.split(",");
-//
-//        // Create a new ShoppingCart object with the updated details
-//        ShoppingCart updatedShoppingCart = new ShoppingCart();
-//        updatedShoppingCart.setItems(new ArrayList<>(Arrays.asList(itemsArray)));
-//        List<Integer> quantitiesList = Arrays.stream(quantitiesArray).map(Integer::parseInt).collect(Collectors.toList());
-//        updatedShoppingCart.setQuantity(quantitiesList);
-//
-//        // You can prompt the user for other details such as total price, shipping details, etc., and set them in the updatedShoppingCart object
-//
-//        return updatedShoppingCart;
-//    }
 }
