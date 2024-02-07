@@ -9,4 +9,5 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface ShoppingCartRepository extends BaseRepository<Integer, ShoppingCart> {
+    public ArrayList<ShoppingCart> listOfShoppingCart() throws SQLException;
 }

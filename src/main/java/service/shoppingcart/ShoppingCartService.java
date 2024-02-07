@@ -35,4 +35,9 @@ public interface ShoppingCartService extends BaseService<Integer, ShoppingCart> 
      updateShoppingCart with new userQuantity
      */
 
+
+    public void showListAndEditShoppingCart(ShoppingCart shoppingCart);
+    public void removeShoppingCart(int userId) throws SQLException;
+
+
 }

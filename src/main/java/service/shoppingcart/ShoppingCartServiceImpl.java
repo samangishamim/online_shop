@@ -70,4 +70,13 @@ public class ShoppingCartServiceImpl extends BaseServiceImpl<Integer, ShoppingCa
         }
 
     }
+
+    @Override
+    public void showListAndEditShoppingCart(ShoppingCart shoppingCart) {
+    }
+
+    @Override
+    public void removeShoppingCart(int userId) throws SQLException {
+
+    }
 }
