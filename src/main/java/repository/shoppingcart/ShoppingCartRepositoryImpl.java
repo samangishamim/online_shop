@@ -58,4 +58,20 @@ public class ShoppingCartRepositoryImpl extends BaseRepositoryImpl<Integer, Shop
 
         return new ShoppingCart(id, productId, quantity, totalAmount, price, orderDate, userId);
     }
+
+    @Override
+    public ArrayList<ShoppingCart> listOfShoppingCart() throws SQLException {
+        //todo SELECT  * FROM shoppingCart ;
+        String sql = "SELECT * FROM shoppingcart";
+        try (PreparedStatement ps = connection.prepareStatement(sql,
+                ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)) {
+            ResultSet resultSet = ps.executeQuery();
+
+            ArrayList<ShoppingCart> shoppingCartList = new ArrayList<>();
+            while (resultSet.next()) {
+                shoppingCartList.add(mapResultSetToEntity(resultSet));
+            }
+            return shoppingCartList;
+        }
+    }
 }
