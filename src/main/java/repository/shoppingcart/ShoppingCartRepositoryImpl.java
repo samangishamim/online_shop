@@ -74,4 +74,14 @@ public class ShoppingCartRepositoryImpl extends BaseRepositoryImpl<Integer, Shop
             return shoppingCartList;
         }
     }
+
+    @Override
+    public void deleteByProductId(int productId) throws SQLException {
+        String sql="delete from shoppingcart where product_id=?;";
+        try(PreparedStatement ps=connection.prepareStatement(sql)){
+            ps.setInt(1,productId);
+
+            ps.executeUpdate();
+        }
+    }
 }
