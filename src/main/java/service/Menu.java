@@ -126,6 +126,7 @@ public class Menu {
                         String newCategoryName = scanner.nextLine();
                         categoryToUpdate.setCategoryName(newCategoryName);
                         categoryService.update(categoryToUpdate);
+                        System.out.println("the category is updated");
                     } else {
                         System.out.println("Category with id " + categoryId + " not found.");
                     }
@@ -183,6 +184,7 @@ public class Menu {
                     newProduct.setBrandId(brandId);
 
                     productService.save(newProduct);
+                    System.out.println("the product is added");
                 }
                 case 2 -> {
 
@@ -214,6 +216,7 @@ public class Menu {
                         productToUpdate.setBrandId(newBrandId);
 
                         productService.update(productToUpdate);
+                        System.out.println("the product is updated");
                     } else {
                         System.out.println("Product with id " + productId + " not found.");
                     }
