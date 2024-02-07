@@ -38,6 +38,8 @@ public interface ShoppingCartService extends BaseService<Integer, ShoppingCart> 
 
     public void showListAndEditShoppingCart(ShoppingCart shoppingCart);
     public void removeShoppingCart(int userId) throws SQLException;
+    public ArrayList<ShoppingCart> listOfShoppingCart() throws SQLException;
+    public void deleteByProductId(int productId) throws SQLException;
 
 
 }
