@@ -4,6 +4,7 @@ import Utility.ApplicationContext;
 import model.Brand;
 import model.Category;
 import model.Product;
+import model.ShoppingCart;
 import service.admin.AdminsService;
 import service.brand.BrandService;
 import service.category.CategoryService;
@@ -13,7 +14,11 @@ import service.users.UserService;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Menu {
     Scanner scanner = new Scanner(System.in);
@@ -115,13 +120,13 @@ public class Menu {
                     int categoryId = scanner.nextInt();
                     scanner.nextLine();
 
-                    Category categoryToUpdate  = categoryService.findById(categoryId);
+                    Category categoryToUpdate = categoryService.findById(categoryId);
                     if (categoryToUpdate != null) {
                         System.out.println("Enter new category name: ");
                         String newCategoryName = scanner.nextLine();
                         categoryToUpdate.setCategoryName(newCategoryName);
                         categoryService.update(categoryToUpdate);
-                    }else {
+                    } else {
                         System.out.println("Category with id " + categoryId + " not found.");
                     }
                 }
@@ -180,6 +185,7 @@ public class Menu {
                     productService.save(newProduct);
                 }
                 case 2 -> {
+
                     System.out.println("enter the product id to edit ");
                     int productId = scanner.nextInt();
                     scanner.nextLine();
@@ -208,7 +214,7 @@ public class Menu {
                         productToUpdate.setBrandId(newBrandId);
 
                         productService.update(productToUpdate);
-                    }else {
+                    } else {
                         System.out.println("Product with id " + productId + " not found.");
                     }
                 }
@@ -239,9 +245,18 @@ public class Menu {
             choice = scanner.nextInt();
             scanner.nextLine();
             switch (choice) {
-                case 1 -> shoppingCartService.addShoppingCart(choice);
+                case 1 -> {
+                    System.out.println("Enter the user ID for the shopping cart: ");
+                    int userId = scanner.nextInt();
+                    scanner.nextLine();
+                    shoppingCartService.addShoppingCart(userId);
+                }
                 case 2 -> {
-//                    shoppingCartService.update();
+                    System.out.println("Enter the shopping cart ID to update: ");
+                    int shoppingCartId = scanner.nextInt();
+                    scanner.nextLine();
+//                    shoppingCartService.update(shoppingCartId);  // Call the method to update the shopping cart
+                    break;
                 }
                 case 3 -> {
                     System.out.println("enter the shopping id to delete ");
@@ -289,22 +304,47 @@ public class Menu {
 
                 }
                 case 3 -> {
-                    System.out.println("Enter the brand id to edit: ");
-                    int brandId = scanner.nextInt();
-                    scanner.nextLine();
-                    System.out.println("Enter the new brand name: ");
-                    String newBrandName = scanner.nextLine();
-                    Brand updatedBrand = new Brand();
-                    updatedBrand.setId(brandId);
-                    updatedBrand.setBrandName(newBrandName);
-                    brandService.update(updatedBrand);
+                    System.out.println("List of brands:");
+//                    List<Brand> brandsForEdit = brandService. // Assuming getAll method fetches all brands from the database
+//                    for (Brand brand : brandsForEdit) {
+//                        System.out.println(brand.getId() + ": " + brand.getBrandName();
+                        System.out.println("Enter the brand id to edit: ");
+                        int brandId = scanner.nextInt();
+                        scanner.nextLine();
+                        System.out.println("Enter the new brand name: ");
+                        String newBrandName = scanner.nextLine();
+                        Brand updatedBrand = new Brand();
+                        updatedBrand.setId(brandId);
+                        updatedBrand.setBrandName(newBrandName);
+                        brandService.update(updatedBrand);
 
-                }
-                case 0 -> {
-                    System.out.println("exit from brand Menu ");
-                    break;
+                    }
+                    case 0 -> {
+                        System.out.println("exit from brand Menu ");
+                        break;
+                    }
                 }
             }
         }
+
+//    private ShoppingCart getUpdatedShoppingCartDetails() {
+//        // Prompt the user for updated shopping cart details
+//        System.out.println("Enter the updated items for the shopping cart (comma-separated): ");
+//        String itemsInput = scanner.nextLine();
+//        String[] itemsArray = itemsInput.split(",");
+//
+//        System.out.println("Enter the updated quantities for the items (comma-separated): ");
+//        String quantitiesInput = scanner.nextLine();
+//        String[] quantitiesArray = quantitiesInput.split(",");
+//
+//        // Create a new ShoppingCart object with the updated details
+//        ShoppingCart updatedShoppingCart = new ShoppingCart();
+//        updatedShoppingCart.setItems(new ArrayList<>(Arrays.asList(itemsArray)));
+//        List<Integer> quantitiesList = Arrays.stream(quantitiesArray).map(Integer::parseInt).collect(Collectors.toList());
+//        updatedShoppingCart.setQuantity(quantitiesList);
+//
+//        // You can prompt the user for other details such as total price, shipping details, etc., and set them in the updatedShoppingCart object
+//
+//        return updatedShoppingCart;
+//    }
     }
-}
