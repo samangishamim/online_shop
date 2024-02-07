@@ -40,8 +40,7 @@ public class UserServiceImpl extends BaseServiceImpl<Integer, Users, UsersReposi
         System.out.println("***** sign in *****");
         System.out.println("enter your username: ");
         String username = scanner.nextLine();
-        System.out.println("enter your password ");
-        String password = scanner.nextLine();
+        String password = getPassword();
 
 
         return doSigning(username,password);
