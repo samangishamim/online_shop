@@ -10,6 +10,7 @@ import service.product.ProductService;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ShoppingCartServiceImpl extends BaseServiceImpl<Integer, ShoppingCart, ShoppingCartRepository>
@@ -32,11 +33,16 @@ public class ShoppingCartServiceImpl extends BaseServiceImpl<Integer, ShoppingCa
 //            System.out.println(product);
 //        }
         while (true) {
-            System.out.println("enter the product id: ");
-            int productId = scanner.nextInt();
-            scanner.nextLine();
-
-            Product product = productService.findById(productId);
+            Product product = null;
+            int productId = 0;
+            while (true) {
+                System.out.println("enter the product id: ");
+                productId = scanner.nextInt();
+                scanner.nextLine();
+                product = productService.findById(productId);
+                if (product != null)
+                    break;
+            }
 
             System.out.println("enter the quantity: ");
             int quantity = scanner.nextInt();
@@ -63,8 +69,8 @@ public class ShoppingCartServiceImpl extends BaseServiceImpl<Integer, ShoppingCa
                 System.out.println("error" + e.getMessage());
             }
             System.out.println("another order [y/n]");
-            String yn=scanner.nextLine();
-            if (yn.equals("n")){
+            String yn = scanner.nextLine();
+            if (yn.equals("n")) {
                 break;
             }
         }
@@ -73,10 +79,48 @@ public class ShoppingCartServiceImpl extends BaseServiceImpl<Integer, ShoppingCa
 
     @Override
     public void showListAndEditShoppingCart(ShoppingCart shoppingCart) {
+
     }
 
     @Override
     public void removeShoppingCart(int userId) throws SQLException {
-
+        System.out.println("**** remove product from shopping cart **** ");
+        ApplicationContext.initialize();
+        ProductService productService = ApplicationContext.getProductService();
+        listByUserId(userId).forEach(System.out::println);
+        Product product = null;
+        int productId = 0;
+        while (true) {
+            System.out.println("enter the product id: ");
+            productId = scanner.nextInt();
+            scanner.nextLine();
+            product = productService.findById(productId);
+            if (product != null)
+                break;
+        }
+        ShoppingCart shoppingCart = findByProductIdUserId(productId, userId);
+        deleteByProductIdUserId(product.getId(),userId);
+        productService.UpdateStockQuantity(product.getId(), shoppingCart.getQuantity(), true);
     }
+
+    @Override
+    public ArrayList<ShoppingCart> listOfShoppingCart() throws SQLException {
+        return repository.listOfShoppingCart();
+    }
+
+    @Override
+    public void deleteByProductIdUserId(int productId,int userId) throws SQLException {
+        repository.deleteByProductIdUserId(productId,userId);
+    }
+
+    @Override
+    public ArrayList<ShoppingCart> listByUserId(int userId) throws SQLException {
+        return repository.listByUserId(userId);
+    }
+
+    @Override
+    public ShoppingCart findByProductIdUserId(int productId, int userId) throws SQLException {
+        return repository.findByProductIdUserId(productId, userId);
+    }
+
 }
