@@ -11,6 +11,7 @@ import service.product.ProductService;
 import service.shoppingcart.ShoppingCartService;
 import service.users.UserService;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.Scanner;
 
@@ -100,12 +101,29 @@ public class Menu {
             scanner.nextLine();
 
             switch (choice) {
-                case 1 -> categoryService.save(new Category());
+                case 1 -> {
+                    System.out.println("Enter category name: ");
+                    String categoryName = scanner.nextLine();
+
+                    Category newCategory = new Category();
+                    newCategory.setCategoryName(categoryName);
+                    categoryService.save(newCategory);
+                    System.out.println("the category has been added");
+                }
                 case 2 -> {
                     System.out.println("enter the category id to edit ");
                     int categoryId = scanner.nextInt();
                     scanner.nextLine();
-//                    categoryService.update();
+
+                    Category categoryToUpdate  = categoryService.findById(categoryId);
+                    if (categoryToUpdate != null) {
+                        System.out.println("Enter new category name: ");
+                        String newCategoryName = scanner.nextLine();
+                        categoryToUpdate.setCategoryName(newCategoryName);
+                        categoryService.update(categoryToUpdate);
+                    }else {
+                        System.out.println("Category with id " + categoryId + " not found.");
+                    }
                 }
                 case 3 -> {
                     System.out.println("enter the category id to delete ");
@@ -137,18 +155,68 @@ public class Menu {
             scanner.nextLine();
 
             switch (choice) {
-                case 1 -> productService.save(new Product());
+                case 1 -> {
+                    System.out.println("Enter product name: ");
+                    String productName = scanner.nextLine();
+                    System.out.println("Enter category id: ");
+                    int categoryId = scanner.nextInt();
+                    scanner.nextLine();
+                    System.out.println("Enter stock quantity: ");
+                    int stockQuantity = scanner.nextInt();
+                    scanner.nextLine();
+                    System.out.println("Enter product price: ");
+                    BigDecimal productPrice = scanner.nextBigDecimal();
+                    scanner.nextLine();
+                    System.out.println("Enter brand id: ");
+                    int brandId = scanner.nextInt();
+                    scanner.nextLine();
+                    Product newProduct = new Product();
+                    newProduct.setProductName(productName);
+                    newProduct.setCategoryId(categoryId);
+                    newProduct.setStockQuantity(stockQuantity);
+                    newProduct.setProductPrice(productPrice);
+                    newProduct.setBrandId(brandId);
+
+                    productService.save(newProduct);
+                }
                 case 2 -> {
                     System.out.println("enter the product id to edit ");
                     int productId = scanner.nextInt();
                     scanner.nextLine();
-//                    productService.update();
+
+                    Product productToUpdate = productService.findById(productId);
+                    if (productToUpdate != null) {
+                        System.out.println("Enter new product name: ");
+                        String newProductName = scanner.nextLine();
+                        System.out.println("Enter new category id: ");
+                        int newCategoryId = scanner.nextInt();
+                        scanner.nextLine();
+                        System.out.println("Enter new stock quantity: ");
+                        int newStockQuantity = scanner.nextInt();
+                        scanner.nextLine();
+                        System.out.println("Enter new product price: ");
+                        BigDecimal newProductPrice = scanner.nextBigDecimal();
+                        scanner.nextLine();
+                        System.out.println("Enter new brand id: ");
+                        int newBrandId = scanner.nextInt();
+                        scanner.nextLine();
+
+                        productToUpdate.setProductName(newProductName);
+                        productToUpdate.setCategoryId(newCategoryId);
+                        productToUpdate.setStockQuantity(newStockQuantity);
+                        productToUpdate.setProductPrice(newProductPrice);
+                        productToUpdate.setBrandId(newBrandId);
+
+                        productService.update(productToUpdate);
+                    }else {
+                        System.out.println("Product with id " + productId + " not found.");
+                    }
                 }
                 case 3 -> {
-                    System.out.println("enter the product id to delete ");
-                    int productId = scanner.nextInt();
+                    System.out.println("Enter the product id to delete: ");
+                    int productIdToDelete = scanner.nextInt();
                     scanner.nextLine();
-                    productService.delete(productId);
+                    productService.delete(productIdToDelete);
 
                 }
                 case 0 -> {
@@ -195,33 +263,45 @@ public class Menu {
         int choice = -1;
         while (choice != 0) {
             System.out.println("*****  brand  MENU *****");
-            System.out.println("1-add ");
-            System.out.println("2-delete ");
-            System.out.println("3-edit ");
-            System.out.println("0-exit");
+            System.out.println("1 - Add brand");
+            System.out.println("2 - Delete brand");
+            System.out.println("3 - Edit brand");
+            System.out.println("0 - Exit");
 
 
             choice = scanner.nextInt();
             scanner.nextLine();
 
             switch (choice) {
-                case 1 -> brandService.save(new Brand());
+                case 1 -> {
+
+                    System.out.println("Enter brand name: ");
+                    String brandName = scanner.nextLine();
+                    Brand newBrand = new Brand();
+                    newBrand.setBrandName(brandName);
+                    brandService.save(newBrand);
+                }
                 case 2 -> {
-                    System.out.println("enter the brand id to delete ");
+                    System.out.println("Enter the brand id to delete: ");
                     int brandId = scanner.nextInt();
                     scanner.nextLine();
                     brandService.delete(brandId);
 
                 }
                 case 3 -> {
-                    System.out.println("enter the brand id to edit ");
+                    System.out.println("Enter the brand id to edit: ");
                     int brandId = scanner.nextInt();
                     scanner.nextLine();
-//                    brandService.update();
+                    System.out.println("Enter the new brand name: ");
+                    String newBrandName = scanner.nextLine();
+                    Brand updatedBrand = new Brand();
+                    updatedBrand.setId(brandId);
+                    updatedBrand.setBrandName(newBrandName);
+                    brandService.update(updatedBrand);
 
                 }
                 case 0 -> {
-                    System.out.println("exit from shareholder-brand Menu ");
+                    System.out.println("exit from brand Menu ");
                     break;
                 }
             }
