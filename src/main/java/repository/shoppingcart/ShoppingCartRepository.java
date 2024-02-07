@@ -10,4 +10,5 @@ import java.util.ArrayList;
 
 public interface ShoppingCartRepository extends BaseRepository<Integer, ShoppingCart> {
     public ArrayList<ShoppingCart> listOfShoppingCart() throws SQLException;
+    public void deleteByProductId(int productId) throws SQLException;
 }
