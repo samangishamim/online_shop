@@ -43,7 +43,7 @@ public class BrandRepositoryImpl extends BaseRepositoryImpl<Integer, Brand> impl
     @Override
     public Brand mapResultSetToEntity(ResultSet resultSet) throws SQLException {
         String brandName = resultSet.getString(1);
-        return  new Brand(brandName);
+        return new Brand(brandName);
     }
 
     @Override
@@ -60,6 +60,5 @@ public class BrandRepositoryImpl extends BaseRepositoryImpl<Integer, Brand> impl
             }
             return brandList;
         }
-    }
     }
 }
