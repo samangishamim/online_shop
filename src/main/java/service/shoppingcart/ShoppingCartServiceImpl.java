@@ -77,17 +77,16 @@ public class ShoppingCartServiceImpl extends BaseServiceImpl<Integer, ShoppingCa
 
     }
 
-    @Override
-    public void showListAndEditShoppingCart(ShoppingCart shoppingCart) {
-
-    }
 
     @Override
     public void removeShoppingCart(int userId) throws SQLException {
         System.out.println("**** remove product from shopping cart **** ");
         ApplicationContext.initialize();
         ProductService productService = ApplicationContext.getProductService();
-        listByUserId(userId).forEach(System.out::println);
+        ArrayList<ShoppingCart> list = listByUserId(userId);
+        for (ShoppingCart shoppingCart : list) {
+            System.out.println(shoppingCart);
+        }
         Product product = null;
         int productId = 0;
         while (true) {
@@ -126,6 +125,16 @@ public class ShoppingCartServiceImpl extends BaseServiceImpl<Integer, ShoppingCa
     @Override
     public ShoppingCart userShoppingCartReport(int userId) throws SQLException {
         return repository.findById(userId);
+    }
+
+    @Override
+    public ArrayList<String> sumOfTotalAmountOfItems() throws SQLException {
+        return repository.sumOfTotalAmountOfItems();
+    }
+
+    @Override
+    public ArrayList<String> sumOfTotalAmountOfItems(int userId) throws SQLException {
+        return repository.sumOfTotalAmountOfItems(userId);
     }
 
 }

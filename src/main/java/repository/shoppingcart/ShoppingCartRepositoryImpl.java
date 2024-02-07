@@ -135,5 +135,23 @@ public class ShoppingCartRepositoryImpl extends BaseRepositoryImpl<Integer, Shop
         return list;
     }
 
+    @Override
+    public ArrayList<String> sumOfTotalAmountOfItems(int userId) throws SQLException {
+        String sql = "SELECT user_id,sum(totalamount) FROM shoppingcart where user_id=? GROUP BY user_id;";
+        ArrayList<String> list=new ArrayList<>();
+        try (PreparedStatement ps= connection.prepareStatement(sql)){
+            ps.setInt(1,userId);
+            ResultSet resultSet = ps.executeQuery();
+            while (resultSet.next()){
+                int id = resultSet.getInt(1);
+                BigDecimal sumOfTotalAmount = resultSet.getBigDecimal(2);
+                String result=String.valueOf(id)+ " - " + sumOfTotalAmount.toString();
+
+                list.add(result);
+            }
+        }
+        return list;
+    }
+
 
 }
