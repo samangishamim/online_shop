@@ -53,7 +53,6 @@ public class AdminsServiceImpl extends BaseServiceImpl<Integer, Admins, AdminsRe
                 System.out.println("Username cannot be empty. Please try again.");
             }
         } while (username.isEmpty());
-        System.out.println("enter your password ");
         String password = getPassword();
 
 
