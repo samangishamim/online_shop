@@ -261,7 +261,6 @@ public class Menu {
                     shoppingCartService.addShoppingCart(userId);
                 }
                 case 2 -> {
-                    System.out.println("enter the product id to delete ");
                     int shoppingId = scanner.nextInt();
                     scanner.nextLine();
                     shoppingCartService.removeShoppingCart(shoppingId);
